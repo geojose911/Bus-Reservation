@@ -1,4 +1,6 @@
-# 🚌 Bus Reservation System
+<p align="center">
+  <img src="assets/logo.svg" alt="Bus Reservation System" width="700"/>
+</p>
 
 ## About the Project
 
@@ -72,10 +74,16 @@ This project helped me understand and implement several C++ concepts, including:
 ## Project Structure
 
 ```text
-Bus Reservation System
+Bus-Reservation
 │
-├── reservation.cpp
-└── README.md
+├── assets/
+│   └── logo.svg          # Logo for README
+│
+├── .gitattributes        
+│
+├── README.md             # Project documentation
+│
+└── reservation.cpp       # Main C++ source code
 ```
 
 ---
