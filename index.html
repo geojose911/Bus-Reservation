@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BusRoute — Bus Reservation System</title>
+  <meta name="description" content="A modern, fully functional bus reservation system. Browse routes, reserve seats, and manage your journey — all in one place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#" onclick="showView('home');return false;">
+        <span class="logo-icon">&#x1F68C;</span>
+        <span class="logo-text">BusRoute</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#" onclick="showView('home');return false;" id="nav-home" class="nav-link active">Home</a></li>
+        <li><a href="#" onclick="showView('buses');return false;" id="nav-buses" class="nav-link">All Buses</a></li>
+        <li><a href="#" onclick="showView('reserve');return false;" id="nav-reserve" class="nav-link">Reserve</a></li>
+        <li><a href="#" onclick="showView('manage');return false;" id="nav-manage" class="nav-link">Manage</a></li>
+      </ul>
+      <button class="btn-primary nav-cta" onclick="showView('reserve')">Book Now</button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#" onclick="showView('home');toggleMobileMenu();return false;">Home</a>
+      <a href="#" onclick="showView('buses');toggleMobileMenu();return false;">All Buses</a>
+      <a href="#" onclick="showView('reserve');toggleMobileMenu();return false;">Reserve</a>
+      <a href="#" onclick="showView('manage');toggleMobileMenu();return false;">Manage</a>
+    </div>
+  </nav>
+
+  <!-- ===== VIEWS CONTAINER ===== -->
+  <main id="app">
+
+    <!-- ============ HOME VIEW ============ -->
+    <section class="view active" id="view-home">
+
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-bg">
+          <div class="hero-orb hero-orb-1"></div>
+          <div class="hero-orb hero-orb-2"></div>
+          <div class="hero-orb hero-orb-3"></div>
+          <div class="road-lines">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="hero-content">
+          <div class="hero-badge">&#10022; Simple. Fast. Reliable.</div>
+          <h1 class="hero-title">Your Journey<br/><em>Starts Here</em></h1>
+          <p class="hero-sub">Reserve bus seats in seconds. Manage routes, check availability, and travel with confidence.</p>
+          <div class="hero-actions">
+            <button class="btn-primary btn-lg" onclick="showView('reserve')">Reserve a Seat &rarr;</button>
+            <button class="btn-ghost btn-lg" onclick="showView('buses')">Browse Routes</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><span class="stat-num" id="stat-routes">0</span><span class="stat-label">Routes</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num" id="stat-seats">0</span><span class="stat-label">Open Seats</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num">32</span><span class="stat-label">Seats/Bus</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="bus-card-mock">
+            <div class="bcm-header">
+              <span class="bcm-badge">Live</span>
+              <span class="bcm-route">Chennai &rarr; Bangalore</span>
+            </div>
+            <div class="bcm-seats">
+              <div class="bcm-seat booked"></div><div class="bcm-seat booked"></div><div class="bcm-seat"></div><div class="bcm-seat"></div>
+              <div class="bcm-seat booked"></div><div class="bcm-seat"></div><div class="bcm-seat"></div><div class="bcm-seat booked"></div>
+              <div class="bcm-seat"></div><div class="bcm-seat"></div><div class="bcm-seat booked"></div><div class="bcm-seat"></div>
+              <div class="bcm-seat"></div><div class="bcm-seat booked"></div><div class="bcm-seat"></div><div class="bcm-seat"></div>
+            </div>
+            <div class="bcm-legend">
+              <span><i class="dot booked"></i>Booked</span>
+              <span><i class="dot"></i>Available</span>
+            </div>
+            <div class="bcm-footer">
+              <span>&#x1F550; Departs 06:00</span>
+              <button class="btn-primary btn-sm" onclick="showView('reserve')">Reserve</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="features-section">
+        <h2 class="section-title">Everything you need</h2>
+        <p class="section-sub">A complete system to manage your bus travel from start to finish.</p>
+        <div class="features-grid">
+          <div class="feature-card" onclick="showView('manage')">
+            <div class="fc-icon">&#x1F5FA;&#xFE0F;</div>
+            <h3>Create Routes</h3>
+            <p>Add new bus routes with driver info, timing, and origin/destination in one simple form.</p>
+            <span class="fc-link">Get started &rarr;</span>
+          </div>
+          <div class="feature-card" onclick="showView('reserve')">
+            <div class="fc-icon">&#x1F39F;&#xFE0F;</div>
+            <h3>Reserve Seats</h3>
+            <p>Browse buses, pick a seat from an interactive seat map, and book it for any passenger.</p>
+            <span class="fc-link">Book now &rarr;</span>
+          </div>
+          <div class="feature-card" onclick="showView('buses')">
+            <div class="fc-icon">&#x1F50D;</div>
+            <h3>Check Availability</h3>
+            <p>See all available buses at a glance and check real-time seat status for each route.</p>
+            <span class="fc-link">View buses &rarr;</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo section -->
+      <div class="demo-section">
+        <div class="demo-inner">
+          <div class="demo-text">
+            <h2>Try it instantly</h2>
+            <p>Load a set of sample bus routes to explore the system without typing anything.</p>
+            <button class="btn-primary" id="demoBtn" onclick="loadDemoData()">Load Sample Routes</button>
+          </div>
+          <div class="demo-img">
+            <div class="terminal-mock">
+              <div class="tm-bar"><span></span><span></span><span></span></div>
+              <div class="tm-body">
+                <p><span class="t-green">&#x2714;</span> Bus KL-01 created</p>
+                <p><span class="t-green">&#x2714;</span> Bus KL-02 created</p>
+                <p><span class="t-yellow">&rarr;</span> Seat 5 booked &mdash; Arjun</p>
+                <p><span class="t-yellow">&rarr;</span> Seat 12 booked &mdash; Priya</p>
+                <p class="blink-cursor"><span class="t-blue">_</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ ALL BUSES VIEW ============ -->
+    <section class="view" id="view-buses">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">All Routes</h1>
+          <p class="page-sub">Browse all available buses and check seat availability.</p>
+        </div>
+        <button class="btn-primary" onclick="showView('manage')">+ Add Route</button>
+      </div>
+
+      <div class="search-bar">
+        <span class="search-icon">&#x1F50D;</span>
+        <input type="text" id="busSearch" placeholder="Search by bus no, from, to, or driver&hellip;" oninput="filterBuses()" />
+      </div>
+
+      <div id="busListEmpty" class="empty-state" style="display:none;">
+        <div class="es-icon">&#x1F68C;</div>
+        <h3>No routes yet</h3>
+        <p>Add your first bus route to get started.</p>
+        <button class="btn-primary" onclick="showView('manage')">Create Route</button>
+      </div>
+
+      <div class="bus-grid" id="busGrid"></div>
+    </section>
+
+    <!-- ============ RESERVE VIEW ============ -->
+    <section class="view" id="view-reserve">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Reserve a Seat</h1>
+          <p class="page-sub">Pick a bus, choose your seat, and confirm your booking.</p>
+        </div>
+      </div>
+
+      <div class="reserve-layout" id="reserveLayout">
+        <!-- Step 1: Select Bus -->
+        <div class="reserve-step" id="step-select-bus">
+          <div class="step-header">
+            <span class="step-num">1</span>
+            <span class="step-label">Select a Bus</span>
+          </div>
+          <div id="reserveBusEmpty" class="empty-state" style="display:none;">
+            <div class="es-icon">&#x1F68C;</div>
+            <h3>No routes available</h3>
+            <p>Create a bus route first.</p>
+            <button class="btn-primary" onclick="showView('manage')">Add Route</button>
+          </div>
+          <div class="reserve-bus-list" id="reserveBusList"></div>
+        </div>
+
+        <!-- Step 2: Seat Map -->
+        <div class="reserve-step" id="step-seat-map" style="display:none;">
+          <div class="step-header">
+            <span class="step-num">2</span>
+            <span class="step-label">Choose Your Seat</span>
+            <button class="btn-ghost btn-sm" onclick="resetReservation()">&#8592; Back</button>
+          </div>
+          <div class="selected-bus-info" id="selectedBusInfo"></div>
+          <div class="seat-legend">
+            <span><i class="dot"></i>Available</span>
+            <span><i class="dot booked"></i>Booked</span>
+            <span><i class="dot selected"></i>Selected</span>
+          </div>
+          <div class="bus-outline">
+            <div class="bus-front">&#x1F68C; Front</div>
+            <div class="seat-grid" id="seatGrid"></div>
+          </div>
+        </div>
+
+        <!-- Step 3: Passenger Details -->
+        <div class="reserve-form-panel" id="step-passenger" style="display:none;">
+          <div class="step-header">
+            <span class="step-num">3</span>
+            <span class="step-label">Passenger Details</span>
+          </div>
+          <div class="form-group">
+            <label for="passengerName">Full Name</label>
+            <input type="text" id="passengerName" placeholder="e.g. Arjun Sharma" />
+          </div>
+          <div class="booking-summary" id="bookingSummary"></div>
+          <button class="btn-primary btn-full" id="confirmBtn" onclick="confirmBooking()">Confirm Booking</button>
+        </div>
+      </div>
+
+      <!-- Booking Success -->
+      <div class="booking-success" id="bookingSuccess" style="display:none;">
+        <div class="success-icon">&#x1F389;</div>
+        <h2>Booking Confirmed!</h2>
+        <div class="ticket" id="ticketCard"></div>
+        <div class="success-actions">
+          <button class="btn-primary" onclick="resetReservation()">Book Another</button>
+          <button class="btn-ghost" onclick="showView('buses')">View All Routes</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MANAGE VIEW ============ -->
+    <section class="view" id="view-manage">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Manage Routes</h1>
+          <p class="page-sub">Create and manage bus routes.</p>
+        </div>
+      </div>
+
+      <div class="manage-layout">
+        <!-- Form -->
+        <div class="manage-form-panel">
+          <h2 class="panel-title">Add New Route</h2>
+          <form id="routeForm" onsubmit="createRoute(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fBusNo">Bus Number</label>
+                <input type="text" id="fBusNo" placeholder="e.g. KL-01" required />
+              </div>
+              <div class="form-group">
+                <label for="fDriver">Driver Name</label>
+                <input type="text" id="fDriver" placeholder="e.g. Rajan Kumar" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fFrom">From</label>
+                <input type="text" id="fFrom" placeholder="e.g. Chennai" required />
+              </div>
+              <div class="form-group">
+                <label for="fTo">To</label>
+                <input type="text" id="fTo" placeholder="e.g. Bangalore" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fArrival">Arrival Time</label>
+                <input type="time" id="fArrival" required />
+              </div>
+              <div class="form-group">
+                <label for="fDeparture">Departure Time</label>
+                <input type="time" id="fDeparture" required />
+              </div>
+            </div>
+            <button type="submit" class="btn-primary btn-full">Create Route</button>
+          </form>
+          <div class="form-feedback" id="routeFeedback"></div>
+        </div>
+
+        <!-- Route List -->
+        <div class="manage-list-panel">
+          <h2 class="panel-title">Existing Routes <span class="badge" id="routeCount">0</span></h2>
+          <div id="manageListEmpty" class="empty-state" style="display:none;">
+            <div class="es-icon">&#x1F4CB;</div>
+            <h3>No routes yet</h3>
+            <p>Create your first route using the form.</p>
+          </div>
+          <div class="manage-route-list" id="manageRouteList"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===== MODAL: Bus Detail ===== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()" id="busDetailModal">
+      <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">&#x1F68C;</span> <strong>BusRoute</strong>
+        <p>A C++ project brought to the web.</p>
+      </div>
+      <div class="footer-credit">
+        <p>Built by <strong>Geo Jose</strong></p>
+        <p class="footer-college">Sree Narayana Gurukulam College of Engineering</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
